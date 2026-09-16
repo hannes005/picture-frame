@@ -1,3 +1,5 @@
 #Python
 .venv/
 __pycache__/
+/datastore/media/
+datastore.db

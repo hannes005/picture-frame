@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Bibliothek</h1>
+
+
+Jedes Bild muss einem Event zugeordnet sein. Erstelle ein neues Event (zB. "Urlaub 2026") über den Button "Neues Event".
+
+<form method="post" action="/library/newevent">
+    Event-Titel: 
+    <input type="text" name="title" value="" required>
+    <button type="submit">Neues Event</button>
+</form>
+
+<table>
+
+    <thead>
+        <tr>
+            <th>Event</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for event in events %}
+        <tr>
+            <td>
+                <a href="/library/events/{{ event.id }}">
+                    {{ event.title }}
+                </a>
+            </td>
+            <td>
+                {{ event.image_count }} Bilder
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a href="/library">
+    <button type="button">Zurück</button>
+</a>
+
+<h1>{{event.title}}</h1>
+
+<h2>Bilder in diesem Event</h2>
+
+Um Bilder hochzuladen, wähle Bilder von deinem Gerät aus und klicke anschließend auf "Hochladen"
+
+<form
+    method="post"
+    action="/library/events/{{ event.id }}/upload"
+    enctype="multipart/form-data"
+>
+    <input
+        type="file"
+        name="images"
+        accept="image/*"
+        multiple
+        required
+    >
+
+    <button type="submit">Hochladen</button>
+</form>
+
+<br><br>
+
+<div class="thumbnail-grid">
+    {% for image in images %}
+        <div class="thumbnail-cell">
+            <div class="thumbnail-image">
+                <img src="/{{ image.path_thumbnail }}" alt="">
+            </div>
+            
+            <form method="post" action="/library/images/{{ image.id }}/delete"
+                    onsubmit="return confirm('Dieses Bild löschen?');">
+                <button type="submit">
+                    Löschen
+                </button>
+            </form>
+        </div>
+
+    {% endfor %}
+</div>
+
+<h2>Event-Verwaltung</h2>
+
+Um das Event umzubenennen, gib einen neuen Titel ein und klicke auf "Umbenennen"
+
+<form method="post" action="/library/events/{{ event.id }}/rename">
+    Neuer Titel: 
+    <input type="text" name="new_title" value="" required>
+    <button type="submit">Umbenennen</button>
+</form>
+
+<br>
+
+Möchtest du das gesamte Event (inklusive aller Bilder) löschen? Dann klicke auf "Event Löschen".
+
+<form method="post" action="/library/events/{{ event.id }}/delete"
+        onsubmit="return confirm('Dieses Event und alle enthaltenen Fotos löschen?');">
+    <button type="submit">
+        Event Löschen
+    </button>
+</form>
+
+
+{% endblock %}
