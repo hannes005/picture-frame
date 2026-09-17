@@ -149,7 +149,8 @@ def get_images_for_event(event_id):
         cur.execute("""
             SELECT
                 id,
-                path_thumbnail
+                path_thumbnail,
+                path_optimized
             FROM photos
             WHERE event_id = ?
             ORDER BY id
@@ -366,7 +367,7 @@ def generate_optimized(image_id):
     #Generate optimized image file
     with Image.open(original_path) as image:
         image = ImageOps.exif_transpose(image) #Applys rotation information from exif data
-        image.thumbnail((1600, 800))
+        image.thumbnail((1920, 1080))
         image.convert("RGB").save(optimized_path, "JPEG", quality=92)
 
     #Save optimized path to database

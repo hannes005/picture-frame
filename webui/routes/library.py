@@ -24,8 +24,6 @@ def show_events(request: Request):
         }
     )
 
-
-
 @router.post("/library/newevent")
 def create_event(
         request: Request,

@@ -10,7 +10,6 @@ router = APIRouter()
 templates = Jinja2Templates(directory="./webui/templates/")
 
 @router.get("/")
-def show_index(request: Request):
-    
+def show_index(request: Request):    
 
     return RedirectResponse(url="/library", status_code=303)
